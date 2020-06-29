@@ -19,7 +19,16 @@ class FavoriteTransferAdapter : RecyclerView.Adapter<FavoriteTransferViewHolder>
         )
 
 
-    override fun getItemCount(): Int = favoriteTransferItems.size
+    override fun getItemCount(): Int {
+        var size = 0;
+        try {
+            size = favoriteTransferItems.size
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return 0
+        }
+        return size
+    }
 
     override fun onBindViewHolder(holder: FavoriteTransferViewHolder, position: Int) =
             holder.bind(favoriteTransferItems[position])
