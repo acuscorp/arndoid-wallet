@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cristianvillamil.platziwallet.R
 import com.cristianvillamil.platziwallet.ui.home.FavoriteTransfer
 import com.cristianvillamil.platziwallet.ui.home.HomeContract
+import com.cristianvillamil.platziwallet.ui.home.data.MessageFactory
+import com.cristianvillamil.platziwallet.ui.home.data.MessageFactory.Companion.TYPE_SUCCESS
 import com.cristianvillamil.platziwallet.ui.home.presenter.HomePresenter
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -63,5 +65,9 @@ class HomeFragment : Fragment(),
 
 	override fun showFavoriteTransfers(favoriteTransfer: List<FavoriteTransfer>) {
 		favoriteTransferAdapter.setData(favoriteTransfer)
+		val messageFactory =  MessageFactory()
+		context?.let {context ->
+			messageFactory.getDialog(context,TYPE_SUCCESS).show()
+		}
 	}
 }

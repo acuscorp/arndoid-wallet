@@ -8,35 +8,28 @@ import com.cristianvillamil.platziwallet.ui.home.FavoriteTransfer
 
 class FavoriteTransferAdapter : RecyclerView.Adapter<FavoriteTransferViewHolder>() {
 
-    private lateinit var favoriteTransferItems: List<FavoriteTransfer>
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteTransferViewHolder =
-        FavoriteTransferViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.favorite_transfer_row,
-                parent,
-                false
-            )
-        )
+	private var favoriteTransferItems: List<FavoriteTransfer>? = null
+	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteTransferViewHolder =
+		FavoriteTransferViewHolder(
+			LayoutInflater.from(parent.context).inflate(
+				R.layout.favorite_transfer_row,
+				parent,
+				false
+			)
+		)
 
 
-    override fun getItemCount(): Int {
-        var size = 0;
-        try {
-            size = favoriteTransferItems.size
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return 0
-        }
-        return size
-    }
+	override fun getItemCount(): Int {
+		return favoriteTransferItems?.size ?: 0
+	}
 
-    override fun onBindViewHolder(holder: FavoriteTransferViewHolder, position: Int) =
-            holder.bind(favoriteTransferItems[position])
+	override fun onBindViewHolder(holder: FavoriteTransferViewHolder, position: Int) =
+		holder.bind(favoriteTransferItems?.get(position)!!)
 
-    fun setData(favoriteTransferItems: List<FavoriteTransfer>) {
-        this.favoriteTransferItems = favoriteTransferItems
-        notifyDataSetChanged()
-    }
+	fun setData(favoriteTransferItems: List<FavoriteTransfer>) {
+		this.favoriteTransferItems = favoriteTransferItems
+		notifyDataSetChanged()
+	}
 
 
 }
