@@ -10,11 +10,11 @@ class User private constructor(private val userName : String, private val passwo
 
 		fun setUserName(userName : String): Builder {
 			this.userName = userName
-			return this
+			return this //return this instance
 		}
 		fun setPassword(password : String) :Builder {
 			this.password = password
-			return this
+			return this //return this instance
 		}
 		fun setNickName(newNickname: String) = apply { this.nickNanme = newNickname  }
 

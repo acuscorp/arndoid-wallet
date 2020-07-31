@@ -1,4 +1,4 @@
-package com.cristianvillamil.platziwallet.ui.transfer
+package com.cristianvillamil.platziwallet.ui
 
 import android.os.Bundle
 import android.text.Editable
@@ -11,6 +11,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cristianvillamil.platziwallet.R
+import com.cristianvillamil.platziwallet.ui.transfer.DashboardViewModel
+import com.cristianvillamil.platziwallet.ui.transfer.OnItemSelected
+import com.cristianvillamil.platziwallet.ui.transfer.TransferAccount
+import com.cristianvillamil.platziwallet.ui.transfer.TransferAccountsAdapter
 import kotlinx.android.synthetic.main.fragment_transfer.*
 import java.text.NumberFormat
 
@@ -23,7 +27,8 @@ class TransferFragment : Fragment() {
     private var selectedTransferAccount: TransferAccount? = null
 
     private val onItemSelectedListener: OnItemSelected<TransferAccount> =
-        object : OnItemSelected<TransferAccount> {
+        object :
+            OnItemSelected<TransferAccount> {
             override fun onItemSelected(item: TransferAccount) {
                 selectedTransferAccount = item
                 item.isSelected = true
@@ -32,7 +37,10 @@ class TransferFragment : Fragment() {
                 transferButton.isEnabled = true
             }
         }
-    private val transferAccountsAdapter = TransferAccountsAdapter(onItemSelectedListener)
+    private val transferAccountsAdapter =
+        TransferAccountsAdapter(
+            onItemSelectedListener
+        )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,12 +60,17 @@ class TransferFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initAmountInputEditText()
         initRecyclerView()
+        transferButton.setOnClickListener {
+
+        }
     }
 
     private fun initRecyclerView() {
         transferAccountsRecyclerView.layoutManager = LinearLayoutManager(context)
         transferAccountsRecyclerView.adapter = transferAccountsAdapter
-        val transferAccount = TransferAccount.Builder("12345")
+        val transferAccount = TransferAccount.Builder(
+            "12345"
+        )
             .setProfilePhotoUrl("htttps://www.google.com/imagenDePrueba")
             .setUserName("Paquito Perez")
             .build()

@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.cristianvillamil.platziwallet.ui.transfer.TransferFragment"
+        android:name="com.cristianvillamil.platziwallet.ui.TransferFragment"
         android:label="@string/title_loans"
         tools:layout="@layout/fragment_transfer" />
 
