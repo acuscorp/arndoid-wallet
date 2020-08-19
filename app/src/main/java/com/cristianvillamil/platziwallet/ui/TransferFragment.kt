@@ -1,11 +1,13 @@
 package com.cristianvillamil.platziwallet.ui
 
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -15,7 +17,10 @@ import com.cristianvillamil.platziwallet.ui.transfer.DashboardViewModel
 import com.cristianvillamil.platziwallet.ui.transfer.OnItemSelected
 import com.cristianvillamil.platziwallet.ui.transfer.TransferAccount
 import com.cristianvillamil.platziwallet.ui.transfer.TransferAccountsAdapter
+import com.cristianvillamil.platziwallet.ui.transfer.data.ApplicationDatabase
+import com.cristianvillamil.platziwallet.ui.transfer.data.TransferEntity
 import kotlinx.android.synthetic.main.fragment_transfer.*
+import kotlinx.coroutines.Runnable
 import java.text.NumberFormat
 
 class TransferFragment : Fragment() {
@@ -61,8 +66,23 @@ class TransferFragment : Fragment() {
         initAmountInputEditText()
         initRecyclerView()
         transferButton.setOnClickListener {
-
+            ApplicationDatabase.getInstance(context!!)
+                .getDAO().saveTransfer(TransferEntity(
+                    userId = "3148",
+                    userName = "platziUser",
+                    transactionDate = "12/12/20",
+                    transactionAmount = "50.000",
+                    receiverUserId = "1716"
+                ))
         }
+        val runnable = Runnable {
+            var userTranfersString = ""
+            val transferList = ApplicationDatabase.getInstance(context!!)?.getDAO().findTransferByUserName("platziUser")
+            transferList!!.forEach { userTranfersString += "\n" + it }
+            Toast.makeText(context!!,userTranfersString,Toast.LENGTH_LONG).show()
+        }
+        val handler = Handler()
+        handler.postDelayed(runnable,3000)
     }
 
     private fun initRecyclerView() {
